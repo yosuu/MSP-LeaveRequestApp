@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="LeaveContext-Web.config Connection String" description="LeaveContext Connection String used in web.config by the application to access the database." defaultValue="Database=LeaveRequest;Data Source=ap-cdbr-azure-southeast-b.cloudapp.net;User Id=b629e31b41b8a1;Password=c4f9af0c" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\MSP\\Step\ 3\ -\ Pimp\ Up\ Your\ Skill\\LeaveRequestApp\\LeaveRequestApp\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='LeaveContext']/@connectionString" />
+  </parameter>
+  <parameter name="LeaveRequestApp.Models.MySqlHistoryContext-Web.config Connection String" description="LeaveRequestApp.Models.MySqlHistoryContext Connection String used in web.config by the application to access the database." defaultValue="LeaveRequestApp.Models.MySqlHistoryContext_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\MSP\\Step\ 3\ -\ Pimp\ Up\ Your\ Skill\\LeaveRequestApp\\LeaveRequestApp\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='LeaveRequestApp.Models.MySqlHistoryContext']/@connectionString" />
+  </parameter>
+</parameters>

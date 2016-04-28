@@ -1,0 +1,68 @@
+﻿@model PagedModel<RoleViewModel>
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <!-- BEGIN PAGE CONTENT BODY -->
+    <div class="page-content">
+        <div class="container">
+            <!-- BEGIN PAGE CONTENT INNER -->
+            <div class="page-content-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet box yellow-gold">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    Master Data - Roles
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @Html.ActionLink("New Item", "EditRole", null, new { @class = "btn green-jungle mb-10" })
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th> ID </th>
+                                                        <th> Name </th>
+                                                        <th> Action </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.Data)
+                                                    {
+                                                        <tr>
+                                                            <td> @item.ID </td>
+                                                            <td> @item.Name </td>
+                                                            <td>
+                                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID, module = "L" }, new { @class = "btn btn-danger", @onclick = "return confirm('Are you sure?');" })
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-5">
+                                        <div class="data-info">
+                                            Showing @Model.MetaData.FirstItemOnPage to @Model.MetaData.LastItemOnPage from @Model.Total records
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7">
+                                        @Html.PagedListPager(Model.Data, page => Url.Action("Roles", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT INNER -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT BODY -->
+    <!-- END CONTENT BODY -->
+</div>

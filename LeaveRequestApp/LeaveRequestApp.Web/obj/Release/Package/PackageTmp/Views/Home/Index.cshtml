@@ -1,0 +1,96 @@
+﻿@model PagedModel<Requests>
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <!-- BEGIN PAGE CONTENT BODY -->
+    <div class="page-content">
+        <div class="container">
+            <!-- BEGIN PAGE CONTENT INNER -->
+            <div class="page-content-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet box blue-steel">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    Task List
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @if (Roles.IsUserInRole("User"))
+                                        {
+                                            <div class="note note-warning">
+                                                To do some action, please login use user with role Approver or higher.
+                                            </div>
+                                        }
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th> Begin Date </th>
+                                                        <th> Leave Day </th>
+                                                        <th> Reason </th>
+                                                        <th> Action </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model.Data.Count > 0)
+                                                    {
+                                                        foreach (var item in Model.Data)
+                                                        {
+                                                            <tr>
+                                                                <td> @item.BeginDate.ToShortDateString() </td>
+                                                                <td> @item.LeaveDay </td>
+                                                                <td> @item.Reason </td>
+                                                                <td>
+                                                                    @if (!Roles.IsUserInRole("User"))
+                                                                    {
+                                                                        @Html.ActionLink("Approve", "Approve", new { id = item.ID }, new { @class = "btn btn-info" })
+                                                                        @Html.ActionLink("Reject", "Reject", new { id = item.ID }, new { @class = "btn btn-danger", @onclick = "return confirm('Are you sure?');" })
+                                                                        @Html.ActionLink("Detail", "Index", "Request", new { id = item.ID }, new { @class = "btn btn-warning" })
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @Html.ActionLink("Approve", "", null, new { @class = "btn btn-info disabled" })
+                                                                        @Html.ActionLink("Reject", "", null, new { @class = "btn btn-danger disabled" })
+                                                                        @Html.ActionLink("Detail", "", null, new { @class = "btn btn-warning disabled" })
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td colspan="4" style="text-align: center"> No data to display. </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (Model.Data.Count > 0)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-5 col-sm-5">
+                                            <div class="data-info">
+                                                Showing @Model.MetaData.FirstItemOnPage to @Model.MetaData.LastItemOnPage from @Model.Total records
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7 col-sm-7">
+                                            @Html.PagedListPager(Model.Data, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT INNER -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT BODY -->
+    <!-- END CONTENT BODY -->
+</div>

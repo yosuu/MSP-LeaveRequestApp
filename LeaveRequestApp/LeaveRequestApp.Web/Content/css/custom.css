@@ -1,0 +1,29 @@
+﻿.pagination-container {
+    text-align: right;
+}
+.pagination {
+    margin: 0;
+}
+.data-info {
+    text-align: left;
+}
+.mb-10 {
+    margin-bottom: 10px;
+}
+.validation-summary-errors ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.logo-default {
+    width: 100%;
+    margin: 14.25px 0 0 !important;
+}
+@media screen and (max-width: 767px){
+    .pagination-container, .data-info {
+        text-align: center;
+    }
+    .pagination {
+        margin-top: 5px;
+    }
+}

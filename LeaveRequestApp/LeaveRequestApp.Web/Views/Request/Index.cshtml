@@ -1,0 +1,91 @@
+﻿@model Requests
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <!-- BEGIN PAGE CONTENT BODY -->
+    <div class="page-content">
+        <div class="container">
+            <!-- BEGIN PAGE CONTENT INNER -->
+            <div class="page-content-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet box green-sharp">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    Edit Request
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @if (Html.ValidationSummary("").ToString().Length > 112)
+                                        {
+                                            <div class="alert alert-danger">
+                                                <strong>Error!</strong> @Html.ValidationSummary("")
+                                            </div>
+                                        }
+                                        @using (Html.BeginForm("Index", "Request", FormMethod.Post, new { @class = "form-horizontal" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    @Html.Label("Requestor", new { @class = "col-md-3 control-label" })
+                                                    <div class="col-md-9">
+                                                        @Html.Label((string)ViewBag.User, new { @class = "form-control", @readonly = "readonly" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.BeginDate, new { @class = "col-md-3 control-label" })
+                                                    <div class="col-md-9">
+                                                        @Html.TextBoxFor(m => m.BeginDate, new { @class = "date-picker form-control", @placeholder = "mm/dd/yyyy", @required = "required" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.LeaveDay, new { @class = "col-md-3 control-label" })
+                                                    <div class="col-md-9">
+                                                        @Html.TextBoxFor(m => m.LeaveDay, new { @class = "form-control", @type = "number", @min = "1", @max = "12", @required = "required" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Reason, new { @class = "col-md-3 control-label" })
+                                                    <div class="col-md-9">
+                                                        @Html.TextAreaFor(m => m.Reason, new { @class = "form-control", @required = "required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-9">
+                                                        <button type="submit" class="btn green-meadow @(Model == null ? "" : "hidden")">Submit</button>
+                                                        @Html.ActionLink((Model == null ? "Cancel" : "Back"), "Index", "Home", null, new { @class = "btn red-flamingo" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT INNER -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT BODY -->
+    <!-- END CONTENT BODY -->
+</div>
+@section header {
+    <link type="text/css" rel="stylesheet" href="~/Content/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+}
+@section scripts {
+    <script type="text/javascript" src="~/Content/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.date-picker').datepicker({
+                rtl: App.isRTL(),
+                orientation: "left",
+                autoclose: true
+            });
+        });
+    </script>
+}
